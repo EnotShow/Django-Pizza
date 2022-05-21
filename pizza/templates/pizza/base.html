@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block head %}
+    {% endblock %}
+    <link href="{% static 'pizza/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'pizza/css/menu_style.css' %}">
+    <title>My menu</title>
+</head>
+<body>
+    <div class="menu">
+        <div class="container">
+            <div class="menu_inner">
+                <div class="logo">
+                    <img src="{% static 'pizza/img/logo.png' %}" alt="">
+                </div>
+                <ul class="nav">
+                    <li><a href="{% url 'home' %}">Главная</a></li>
+                    <li><a href="/pizza">Сделать заказ</a></li>
+                    <li><a href="{% url 'about' %}">О нас</a></li>
+                    <li><a href="{% url 'about' %}">Резюме</a></li>
+                    <li><a href="{% url 'about' %}">Добавить товар</a></li>
+                    <li><a href="https://github.com/EnotShow"><img src="{% static 'pizza/img/gitlogo.png' %}" width="25">  Github</a></li>
+                    {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'about' %}">Корзина</a></li>
+                    <li><a href="{% url 'logout' %}">Выйти</a></li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}">Войти</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</body>
+</html>

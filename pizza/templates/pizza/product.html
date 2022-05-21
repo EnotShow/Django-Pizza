@@ -1,0 +1,49 @@
+{% extends 'pizza/base.html' %}
+{% load static %}
+{% block head %}
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="{% static 'pizza/css/product_style.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+      <!-- Left Column / Headphones Image -->
+    <div class="container-product">
+      <div class="left-column">
+        <img class="active" src="{{ product.image.url }}" width="500" alt="">
+      </div>
+
+
+      <!-- Right Column -->
+      <div class="right-column">
+
+        <!-- Product Description -->
+        <div class="product-description">
+          <h1>{{ product.title }}</h1>
+          <p>{{ product.ingredients }}</p>
+          <p>{{ product.about }}</p>
+        </div>
+
+        <!-- Product Configuration -->
+        <div class="product-configuration">
+
+
+          <!-- Cable Configuration -->
+          <div class="cable-config">
+            <span>TODO</span>
+
+            <div class="cable-choose">
+              <button>Straight</button>
+              <button>Coiled</button>
+              <button>Long-coiled</button>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Product Pricing -->
+        <div class="product-price">
+          <span>Цена</span>
+          <a href="#" class="cart-btn">Add to cart</a>
+        </div>
+      </div>
+    </div>
+{% endblock %}

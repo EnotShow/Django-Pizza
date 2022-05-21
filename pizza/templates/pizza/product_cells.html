@@ -1,0 +1,95 @@
+{% extends 'pizza/base.html' %}
+{% load pizza_tags %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'pizza/css/container_style.css' %}">
+{% endblock %}
+{% block content %}
+<div class="row">
+<div class="col-md-4">
+    <div class="list-group">
+        {% get_categories as categories %}
+        {% for cat in categories %}
+        <a href="{{ cat.get_absolute_url }}" class="list-group-item">{{ cat.title }}</a>
+        {% endfor %}
+    </div>
+</div>
+{% for product in products %}
+{% if forloop.first %}
+    <div class="col-md-8 products">
+        <div class="row">
+        <div class="col-sm-4">
+            <div class="product">
+                <div class="product-img">
+                    <a href="{{ product.get_absolute_url }}"><img src="{{ product.image.url }}" width="150" alt=""></a>
+                </div>
+                <p class="product-title">
+                    <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
+                </p>
+                {% if product.ingredients %}
+                <p class="product-desc">{{ product.ingredients }}</p>
+                {% elif product.about %}
+                <p class="product-desc">{{ product.about }}</p>
+                {% endif %}
+                <li class="buy"><a href="{{ product.get_absolute_url }}">Добавить в корзину</a></li>
+            </div>
+        </div>
+{% elif forloop == 3 or forloop == 9 %}
+    </div>
+    </div>
+    <div class="col-md-8 products">
+        <div class="row">
+        <div class="col-sm-4">
+            <div class="product">
+                <div class="product-img">
+                    <a href="{{ product.get_absolute_url }}"><img src="{{ product.image.url }}" width="150" alt=""></a>
+                </div>
+                <p class="product-title">
+                    <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
+                </p>
+                {% if product.ingredients %}
+                <p class="product-desc">{{ product.ingredients }}</p>
+                {% elif product.about %}
+                <p class="product-desc">{{ product.about }}</p>
+                {% endif %}
+                <li class="buy"><a href="{{ product.get_absolute_url }}">Добавить в корзину</a></li>
+            </div>
+        </div>
+{% else %}
+    <div class="col-sm-4">
+            <div class="product">
+                <div class="product-img">
+                    <a href="{{ product.get_absolute_url }}"><img src="{{ product.image.url }}" width="150" alt=""></a>
+                </div>
+                <p class="product-title">
+                    <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
+                </p>
+                {% if product.ingredients %}
+                <p class="product-desc">{{ product.ingredients }}</p>
+                {% elif product.about %}
+                <p class="product-desc">{{ product.about }}</p>
+                {% endif %}
+                <li class="buy"><a href="{{ product.get_absolute_url }}">Добавить в корзину</a></li>
+            </div>
+        </div>
+{% endif %}
+{% endfor %}
+
+</div>
+
+
+<center><div class="pagination">
+<ul class="nav2">
+    <li><a href="#"><<</a></li>
+    <li><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li><a href="#">>></a></li>
+</ul>
+</div></center>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+{% endblock %}

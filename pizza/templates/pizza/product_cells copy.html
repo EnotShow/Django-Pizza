@@ -1,0 +1,73 @@
+{% extends 'pizza/base.html' %}
+{% load static %}
+{% block content %}
+<div class="row">
+<div class="col-md-4">
+    <div class="list-group">
+        <a href="#" class="list-group-item">Футболки</a>
+        <a href="#" class="list-group-item">Джинсы</a>
+        <a href="#" class="list-group-item">Брюки</a>
+        <a href="#" class="list-group-item">Платья</a>
+        <a href="#" class="list-group-item">Куртки</a>
+    </div>
+</div>
+{% for product in products %}
+<div class="col-md-8 products">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="product">
+                <div class="product-img">
+                    <a href="#"><img src="img/goods1.jpg" alt=""></a>
+                </div>
+                <p class="product-title">
+                    <a href="#">Cream jane jeans dress</a>
+                </p>
+                <p class="product-desc">Signature NYX cosmetics</p>
+                <li class="buy"><a href="#">Купить</a></li>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="product">
+                <div class="product-img">
+                    <a href="#"><img src="img/goods2.jpg" alt=""></a>
+                </div>
+                <p class="product-title">
+                    <a href="#">Cream sissi tunic</a>
+                </p>
+                <p class="product-desc">Lightweight with just a hint of sheer color, this hydrating</p>
+                <li class="buy"><a href="#">Купить</a></li>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="product">
+                <div class="product-img">
+                    <a href="#"><img src="img/goods3.jpg" alt=""></a>
+                </div>
+                <p class="product-title">
+                    <a href="#">Big doodle shawl - blue/black</a>
+                </p>
+                <p class="product-desc">Lightweight with just a hint of sheer color, this hydrating Lightweight with just a hint of sheer color, this hydrating</p>
+                <li class="buy"><a href="#">Купить</a></li>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+</div>
+
+
+<center><div class="pagination">
+<ul class="nav2">
+    <li><a href="#"><<</a></li>
+    <li><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li><a href="#">>></a></li>
+</ul>
+</div></center>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+{% endblock %}
