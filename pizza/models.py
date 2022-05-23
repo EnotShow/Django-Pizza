@@ -31,6 +31,9 @@ class Price(models.Model):
         verbose_name_plural = 'Цены'
         ordering = ['pk']
 
+    def get_absolute_url(self):
+        return reverse('item', kwargs={'item_id': self.pk})
+
     def __str__(self):
         return str(self.product)
 

@@ -19,7 +19,6 @@
         <div class="product-description">
           <h1>{{ product.title }}</h1>
           <p>{{ product.ingredients }}</p>
-          <p>{{ product.about }}</p>
         </div>
 
         <!-- Product Configuration -->
@@ -28,22 +27,36 @@
 
           <!-- Cable Configuration -->
           <div class="cable-config">
-            <span>TODO</span>
+            <span>{{ product.about }}</span>
 
             <div class="cable-choose">
-              <button>Straight</button>
-              <button>Coiled</button>
-              <button>Long-coiled</button>
+            {% for price in product.price_set.all %}
+              <button id="item{{ forloop.counter }}" onclick="myFunc({{ price.price }},{{ price.id }})">{{ price.description }}</button>
+
+            {% endfor %}
+
             </div>
 
           </div>
         </div>
 
         <!-- Product Pricing -->
-        <div class="product-price">
-          <span>Цена</span>
-          <a href="#" class="cart-btn">Add to cart</a>
+        <div id="productButton" class="product-price">
+            <span id="prodPrice">Цена:</span>
         </div>
       </div>
     </div>
+    <script>
+                let div = document.getElementById('productButton');
+                function myFunc(price, id) {
+                    let item = document.getElementById('prodPrice')
+                    item.innerText = 'Цена: ' + price
+
+                    if (!document.getElementById('cart')) {
+                        div = div.innerHTML = div.innerHTML + `<a href="${id}" id="cart" class="cart-btn">Добавить в корзину</a>`
+                    } else {
+                        document.getElementById('cart').href = id
+                    }
+                }
+    </script>
 {% endblock %}
