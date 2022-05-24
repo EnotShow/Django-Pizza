@@ -23,7 +23,7 @@
                     <li><a href="/pizza">Сделать заказ</a></li>
                     <li><a href="{% url 'about' %}">О нас</a></li>
                     <li><a href="{% url 'about' %}">Резюме</a></li>
-                    <li><a href="{% url 'about' %}">Добавить товар</a></li>
+                    <li><a href="{% url 'addprod' %}">Добавить товар</a></li>
                     <li><a href="https://github.com/EnotShow"><img src="{% static 'pizza/img/gitlogo.png' %}" width="25">  Github</a></li>
                     {% if request.user.is_authenticated %}
                     <li><a href="{% url 'about' %}">Корзина</a></li>

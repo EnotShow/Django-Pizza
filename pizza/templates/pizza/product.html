@@ -47,16 +47,16 @@
       </div>
     </div>
     <script>
-                let div = document.getElementById('productButton');
-                function myFunc(price, id) {
-                    let item = document.getElementById('prodPrice')
-                    item.innerText = 'Цена: ' + price
+            let div = document.getElementById('productButton');
+            function myFunc(price, id) {
+                let item = document.getElementById('prodPrice')
+                item.innerText = 'Цена: ' + price
 
-                    if (!document.getElementById('cart')) {
-                        div = div.innerHTML = div.innerHTML + `<a href="${id}" id="cart" class="cart-btn">Добавить в корзину</a>`
-                    } else {
-                        document.getElementById('cart').href = id
-                    }
+                if (!document.getElementById('cart')) {
+                    div = div.innerHTML = div.innerHTML + `<a href="${id}" id="cart" class="cart-btn">Добавить в корзину</a>`
+                } else {
+                    document.getElementById('cart').href = id
                 }
+            }
     </script>
 {% endblock %}

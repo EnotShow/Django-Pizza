@@ -1,10 +1,12 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, HttpResponse, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
+from .forms import AddProductForm
 from .models import *
 
 
@@ -44,6 +46,16 @@ class ProductView(generic.DetailView):
     template_name = 'pizza/product.html'
     pk_url_kwarg = 'product_id'
     context_object_name = 'product'
+
+
+class ProductAdd(LoginRequiredMixin, generic.CreateView):
+    model = Product
+    form_class = AddProductForm
+
+    template_name = 'pizza/addproduct.html'
+    context_object_name = 'form'
+
+    login_url = 'login'
 
 
 def user_logout(request):

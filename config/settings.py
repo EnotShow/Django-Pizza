@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
 
     'pizza.apps.PizzaConfig',
+    'cart.apps.CartConfig',
     'users.apps.UsersConfig',
 ]
 
