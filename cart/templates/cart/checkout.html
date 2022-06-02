@@ -1,0 +1,31 @@
+{% extends 'pizza/base.html' %}
+{% load static %}
+{% block content %}
+    <h3>Оставьте ваш номер телефона и адрес доставки. Мы свяжемся с вами в течении 10 минут !</h3>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>
+            <label>Номер телефона: </label>
+                {{ form.phone }}
+        </p>
+        <p>
+            <label>Адрес доставки: </label>
+                {{ form.address }}
+        </p>
+        <input type="submit" value="Заказать">
+    </form>
+    <script>
+    document.getElementById('id_phone').value = '{{ phone }}'
+    document.getElementById('id_address').value = '{{ address }}'
+    </script>
+{% endblock %}
+
+{#        {% csrf_token %}#}
+{#        <p>#}
+{#        <label for="id_title">Номер телефона:</label>#}
+{#        <input type="text" name="title" maxlength="255" required="" id="id_title" value="{{ phone }}">#}
+{#        </p>#}
+{#        <p>#}
+{#        <label for="id_title">Адрес:</label>#}
+{#        <input type="text" name="title" maxlength="255" required="" id="id_title" value="{{ address }}">#}
+{#        </p>#}

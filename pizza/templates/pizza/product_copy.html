@@ -5,7 +5,6 @@
     <link href="{% static 'pizza/css/product_style.css' %}" rel="stylesheet">
 {% endblock %}
 {% block content %}
-
       <!-- Left Column / Headphones Image -->
     <div class="container-product">
       <div class="left-column">
@@ -42,14 +41,9 @@
         </div>
 
         <!-- Product Pricing -->
-
-        <div class="product-price">
+        <div id="productButton" class="product-price">
+            {% csrf_token %}
             <span id="prodPrice">Цена:</span>
-            <form method="post" action="/cart/add" enctype="multipart/form-data" id="productButton">
-                {% csrf_token %}
-                {{ form.as_p }}
-            </form>
-
         </div>
       </div>
     </div>
@@ -60,10 +54,9 @@
                 item.innerText = 'Цена: ' + price
 
                 if (!document.getElementById('cart')) {
-                    div = div.innerHTML = div.innerHTML + `<input type="submit" value="Добавить в корзину" id="cart" class="cart-btn">`
-                    document.getElementById('productButton').action = `/cart/add/${id}`
+                    div = div.innerHTML = div.innerHTML + `<a href="add/${id}" type="submit" method="post" id="cart" class="cart-btn">Добавить в корзину</a>`
                 } else {
-                    document.getElementById('productButton').action = `/cart/add/${id}`
+                    document.getElementById('cart').href = `add/${id}`
                 }
             }
     </script>

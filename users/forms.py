@@ -14,3 +14,12 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = User
         fields = UserCreationForm.Meta.fields + ('phone', 'address')
+
+
+class UpdateUserDataForm(forms.ModelForm):
+    phone = forms.CharField(max_length=255, required=True,)
+    address = forms.CharField(max_length=255, required=True)
+
+    class Meta:
+        model = User
+        fields = ['phone', 'address']

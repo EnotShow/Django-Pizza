@@ -5,6 +5,7 @@ from django.contrib.auth.views import LoginView
 from django.shortcuts import render, HttpResponse, redirect
 from django.urls import reverse_lazy
 from django.views import generic
+from cart.forms import *
 
 from .forms import AddProductForm
 from .models import *
@@ -40,8 +41,9 @@ class ProductCellCategoryView(generic.ListView):
         return Product.objects.filter(cat__slug=self.kwargs.get('cat_slug'))
 
 
-class ProductView(generic.DetailView):
+class ProductView(generic.FormView, generic.DetailView):
     model = Product
+    form_class = CartAddProductForm
 
     template_name = 'pizza/product.html'
     pk_url_kwarg = 'product_id'
@@ -61,3 +63,12 @@ class ProductAdd(LoginRequiredMixin, generic.CreateView):
 def user_logout(request):
     logout(request)
     return redirect('home')
+
+
+class Test(generic.FormView):
+    model = Product
+    form_class = CartAddProductForm
+
+    template_name = 'pizza/form.html'
+    pk_url_kwarg = 'product_id'
+    context_object_name = 'product'
