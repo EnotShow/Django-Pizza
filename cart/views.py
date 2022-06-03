@@ -13,7 +13,7 @@ from users.models import User
 from .cart import Cart
 from .forms import CartAddProductForm
 from .models import Checkout
-
+from pizza.utils import context
 
 @require_POST
 @login_required
@@ -43,7 +43,10 @@ def cart_detail(request):
     for item in cart:
         item['update_quantity_form'] = CartAddProductForm(initial={'quantity': item['quantity'],
                                                                    'update': True})
-    return render(request, 'cart/cart.html', {'cart': cart})
+    local_context = context
+    local_context['cart'] = cart
+    local_context['title'] = 'Корзина товаров'
+    return render(request, 'cart/cart.html', context=local_context)
 
 
 @login_required
@@ -63,15 +66,22 @@ def checkout(request):
         request.POST,
         instance=request.user,
     )
-    context = {'form': data_form, 'phone': user_phone, 'address': user_address}
+    local_context = context
+    local_context['form'] = data_form
+    local_context['phone'] = user_phone
+    local_context['address'] = user_address
+    local_context['title'] = 'Оформление заказа'
+    if request.session.get(settings.CART_SESSION_ID):
 
-    if request.method == 'POST':
-        if data_form.is_valid():
-            data_form.save()
-            order(user=request.user, order=cart).save()
-            request.session[settings.CART_SESSION_ID] = {}
-            return redirect('home')
-        else:
-            return render(request, 'cart/checkout.html', context=context)
+        if request.method == 'POST':
+            if data_form.is_valid():
+                data_form.save()
+                order(user=request.user, order=cart).save()
+                request.session[settings.CART_SESSION_ID] = {}
+                return redirect('home')
+            else:
+                return render(request, 'cart/checkout.html', context=local_context)
 
-    return render(request, 'cart/checkout.html', context=context)
+        return render(request, 'cart/checkout.html', context=local_context)
+
+    return render(request, 'cart/no_items_in_cart.html', context=local_context)

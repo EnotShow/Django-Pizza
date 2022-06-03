@@ -9,17 +9,23 @@ from cart.forms import *
 
 from .forms import AddProductForm
 from .models import *
+from .utils import DataMixin
 
 
 def none(request):
     return HttpResponse('Page not exist')
 
 
-class HomeView(generic.TemplateView):
+class HomeView(DataMixin, generic.TemplateView):
     template_name = 'pizza/index.html'
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Главная страница')
+        return dict(list(context.items()) + list(c_def.items()))
 
-class ProductCellView(generic.ListView):
+
+class ProductCellView(DataMixin, generic.ListView):
     model = Product
     paginate_by = 9
 
@@ -29,10 +35,15 @@ class ProductCellView(generic.ListView):
     def get(self, request, *args, **kwargs):
         return redirect('/pizza')
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Список товаров')
+        return dict(list(context.items()) + list(c_def.items()))
 
-class ProductCellCategoryView(generic.ListView):
+
+class ProductCellCategoryView(DataMixin, generic.ListView):
     model = Product
-    paginate_by = 9
+    paginate_by = 6
 
     template_name = 'pizza/product_cells.html'
     context_object_name = 'products'
@@ -40,8 +51,13 @@ class ProductCellCategoryView(generic.ListView):
     def get_queryset(self):
         return Product.objects.filter(cat__slug=self.kwargs.get('cat_slug'))
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Список товаров')
+        return dict(list(context.items()) + list(c_def.items()))
 
-class ProductView(generic.FormView, generic.DetailView):
+
+class ProductView(DataMixin, generic.FormView, generic.DetailView):
     model = Product
     form_class = CartAddProductForm
 
@@ -49,15 +65,10 @@ class ProductView(generic.FormView, generic.DetailView):
     pk_url_kwarg = 'product_id'
     context_object_name = 'product'
 
-
-class ProductAdd(LoginRequiredMixin, generic.CreateView):
-    model = Product
-    form_class = AddProductForm
-
-    template_name = 'pizza/addproduct.html'
-    context_object_name = 'form'
-
-    login_url = 'login'
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Просмотр товара')
+        return dict(list(context.items()) + list(c_def.items()))
 
 
 def user_logout(request):
@@ -65,7 +76,7 @@ def user_logout(request):
     return redirect('home')
 
 
-class Test(generic.FormView):
+class Test(DataMixin, generic.FormView):
     model = Product
     form_class = CartAddProductForm
 

@@ -55,10 +55,14 @@
 							<td id="visible-total" class="text-center"><strong>0</strong></td>
 						</tr>
 						<tr>
-							<td><a href="{% url 'products' %}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Продолжить покупки</a></td>
+							<td id="checkout"><a href="{% url 'products' %}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Продолжить покупки</a></td>
 							<td colspan="2" class="hidden-xs"></td>
 							<td  id="hidden-total" class="hidden-xs text-center"><strong>0</strong></td>
+                            {% if cart %}
 							<td><a href="{% url 'checkout' %}" class="btn btn-success btn-block">Заказать <i class="fa fa-angle-right"></i></a></td>
+                            {% endif %}
+
+
 						</tr>
 					</tfoot>
 				</table>
